@@ -1,21 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[GuGiu Blog]]></title><description><![CDATA[A starter blog demonstrating what Gatsby can do.]]></description><link>https://gatsby-starter-blog-demo.netlify.app</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 17 Jul 2020 15:17:08 GMT</lastBuildDate><item><title><![CDATA[从一线到二线，从互联网到传统制造]]></title><description><![CDATA[2020 年从一线城市 北京 到了 二线城市 Q市，体验数月，有些区别。如下 上班时间 在 北京 经历三家公司上班时间如下 第一家 - 上市互联网公司 10点 - 7点，双休。发版日会根据情况加班，经常凌晨，偶尔通宵。一般一到两个月一个版本。 第二家 - 创业互联网公司 1…]]></description><link>https://gatsby-starter-blog-demo.netlify.app/beijing-internet-enterprise-vs-second-tier-city-traditional-manufacturing/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.app/beijing-internet-enterprise-vs-second-tier-city-traditional-manufacturing/</guid><pubDate>Wed, 15 Jul 2020 23:13:00 GMT</pubDate><content:encoded>&lt;p&gt;2020 年从一线城市 北京 到了 二线城市 Q市，体验数月，有些区别。如下&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[GuGiu Blog]]></title><description><![CDATA[A starter blog demonstrating what Gatsby can do.]]></description><link>https://gatsby-starter-blog-demo.netlify.app</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 17 Jul 2020 15:43:50 GMT</lastBuildDate><item><title><![CDATA[从一线到二线，从互联网到传统制造]]></title><description><![CDATA[2020 年从一线城市 北京 到了 二线城市 Q 市，体验数月，有些区别。
+给每个公司遍个代号，便于叙述。
+北京 上市互联网公司 S ，市值高时 80 亿美元 创业公司 A 上市公司 C，市值高时 40 亿美元
+Q市 上市公司 H…]]></description><link>https://gatsby-starter-blog-demo.netlify.app/beijing-internet-enterprise-vs-second-tier-city-traditional-manufacturing/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.app/beijing-internet-enterprise-vs-second-tier-city-traditional-manufacturing/</guid><pubDate>Wed, 15 Jul 2020 23:13:00 GMT</pubDate><content:encoded>&lt;p&gt;2020 年从一线城市 北京 到了 二线城市 Q 市，体验数月，有些区别。
+给每个公司遍个代号，便于叙述。
+北京&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;上市互联网公司 S ，市值高时 80 亿美元&lt;/li&gt;
+&lt;li&gt;创业公司 A&lt;/li&gt;
+&lt;li&gt;上市公司 C，市值高时 40 亿美元
+Q市&lt;/li&gt;
+&lt;li&gt;上市公司 H&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;具体如下&lt;/p&gt;
 &lt;h2&gt;上班时间&lt;/h2&gt;
 &lt;p&gt;在 北京 经历三家公司上班时间如下&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;第一家 - 上市互联网公司&lt;/p&gt;
+&lt;p&gt;S 厂&lt;/p&gt;
 &lt;p&gt;10点 - 7点，双休。发版日会根据情况加班，经常凌晨，偶尔通宵。一般一到两个月一个版本。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;第二家 - 创业互联网公司&lt;/p&gt;
+&lt;p&gt;A 厂&lt;/p&gt;
 &lt;p&gt;10点 - 7点，大小周。偶尔加班到八点。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;第三家 - 上市互联网公司&lt;/p&gt;
+&lt;p&gt;C 厂&lt;/p&gt;
 &lt;p&gt;10:30 - 10:30，偶尔早走或晚走，未通宵过。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2&gt;工作环境&lt;/h2&gt;
+&lt;p&gt;北京公司由废旧工厂改造，重新设计，环境优雅，风景秀丽，稀树草坪，常有
+Q市公司内部禁止拍照，公司外部无人拍照&lt;/p&gt;
 &lt;h2&gt;职业发展&lt;/h2&gt;
 &lt;h2&gt;团队成员&lt;/h2&gt;
 &lt;h2&gt;个人生活&lt;/h2&gt;</content:encoded></item></channel></rss>
