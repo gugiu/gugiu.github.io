@@ -1,4 +1,124 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[GuGiu Blog]]></title><description><![CDATA[A starter blog demonstrating what Gatsby can do.]]></description><link>https://gatsby-starter-blog-demo.netlify.app</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 21 Jul 2020 14:04:30 GMT</lastBuildDate><item><title><![CDATA[从一线到二线，从互联网到传统制造]]></title><description><![CDATA[2020 年从一线城市 北京 到了 二线城市 Q 市，体验数月，有些区别。以下从客户端开发角度来描述。 工作环境  北京/互联网 Q 市/传统制造 工作时间 - S 厂  10:00 - 7:00，双休。发版日会根据情况加班，经常凌晨，偶尔通宵。一般一到两个月一个版本。- A…]]></description><link>https://gatsby-starter-blog-demo.netlify.app/beijing-internet-enterprise-vs-second-tier-city-traditional-manufacturing/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.app/beijing-internet-enterprise-vs-second-tier-city-traditional-manufacturing/</guid><pubDate>Wed, 15 Jul 2020 23:13:00 GMT</pubDate><content:encoded>&lt;p&gt;2020 年从一线城市 北京 到了 二线城市 Q 市，体验数月，有些区别。以下从客户端开发角度来描述。&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[GuGiu Blog]]></title><description><![CDATA[A starter blog demonstrating what Gatsby can do.]]></description><link>https://gatsby-starter-blog-demo.netlify.app</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 04 Aug 2020 14:14:23 GMT</lastBuildDate><item><title><![CDATA[JVM 垃圾收集器与内存分配策略]]></title><description><![CDATA[Java 虚拟机中的内存分区 方法区 存储被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。 线程共享 也被很多人认为是 “永久代”，但是后来没有方法区了，变成了 ”元空间“ 类加载器被卸载后，方法区中的 类信息才会被回收 Java…]]></description><link>https://gatsby-starter-blog-demo.netlify.app/jvm-garbage-collect/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.app/jvm-garbage-collect/</guid><pubDate>Sun, 02 Aug 2020 16:51:00 GMT</pubDate><content:encoded>&lt;h2&gt;Java 虚拟机中的内存分区&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;方法区&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;存储被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。&lt;/li&gt;
+&lt;li&gt;线程共享&lt;/li&gt;
+&lt;li&gt;也被很多人认为是 “永久代”，但是后来没有方法区了，变成了 ”元空间“&lt;/li&gt;
+&lt;li&gt;类加载器被卸载后，方法区中的 类信息才会被回收&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;b&gt;Java 堆（重点，垃圾回收的重点）&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;存储大多数对象&lt;/li&gt;
+&lt;li&gt;线程共享&lt;/li&gt;
+&lt;li&gt;分为新生代老年代，新生代又分为 Eden 区和 Survivor 区&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;虚拟机栈 &lt;/li&gt;
+&lt;li&gt;本地方法栈&lt;/li&gt;
+&lt;li&gt;程序计数器&lt;/li&gt;
+&lt;li&gt;新生代 GC （Minor GC）&lt;/li&gt;
+&lt;li&gt;老年代 GC （Major GC / Full GC ）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;判断对象是否需要回收的算法&lt;/h2&gt;
+&lt;h3&gt;引用计数算法&lt;/h3&gt;
+&lt;p&gt;Java 没有选用，其他语言有选用的，比如Python。Java 没有选用的主要原因是很难解决循环引用。&lt;/p&gt;
+&lt;h3&gt;可达性分析算法&lt;/h3&gt;
+&lt;p&gt;当一个对象到 GC Roots 没有任何引用链相联，则认为该对象不可用。&lt;/p&gt;
+&lt;h4&gt;关于引用&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;强引用&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;软引用&lt;/p&gt;
+&lt;p&gt;有用非必需的引用&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;弱引用&lt;/p&gt;
+&lt;p&gt;无论是否有用，都会被回收&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;虚引用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;finalize()只会被系统自动调用一次。下次回收时不会再调用 finalize 方法，则对象会被回收，&lt;/p&gt;
+&lt;h2&gt;垃圾收集算法&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;标记清除算法&lt;/li&gt;
+&lt;li&gt;复制算法&lt;/li&gt;
+&lt;li&gt;标记整理算法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;安全点&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;安全区域&lt;/code&gt;&lt;/p&gt;
+&lt;h2&gt;垃圾收集器&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Serial 收集器&lt;/li&gt;
+&lt;li&gt;ParNew 收集器&lt;/li&gt;
+&lt;li&gt;Parallel Scavenhge&lt;/li&gt;
+&lt;li&gt;Serial Old 收集器&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;b&gt;CMS 收集器&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;服务器常用&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;缺点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CPU 资源敏感&lt;/li&gt;
+&lt;li&gt;无法处理浮动垃圾&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;G1 收集器&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;分相同大小的区域&lt;/li&gt;
+&lt;li&gt;优点&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;内存分配与回收策略&lt;/h2&gt;
+&lt;p&gt;对象优先在 新生代的 Eden 分配&lt;/p&gt;
+&lt;h2&gt;FAQ&lt;/h2&gt;
+&lt;h3&gt;1. G1 相比 CMS 优势 ?&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;空间整合，不会产生内存空间碎片&lt;/li&gt;
+&lt;li&gt;可预测停顿&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;2. 什么是 GC Root ？&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;https://help.eclipse.org/2020-06/index.jsp?topic=%2Forg.eclipse.mat.ui.help%2Fconcepts%2Fgcroots.html&amp;amp;cp=37_2_3
+
+Garbage Collection Roots
+A garbage collection root is an object that is accessible from outside the heap. The following reasons make an object a GC root:
+
+System Class
+Class loaded by bootstrap/system class loader. For example, everything from the rt.jar like java.util.* .
+JNI Local
+Local variable in native code, such as user defined JNI code or JVM internal code.
+JNI Global
+Global variable in native code, such as user defined JNI code or JVM internal code.
+Thread Block
+Object referred to from a currently active thread block.
+Thread
+A started, but not stopped, thread.
+Busy Monitor
+Everything that has called wait() or notify() or that is synchronized. For example, by calling synchronized(Object) or by entering a synchronized method. Static method means class, non-static method means object.
+Java Local
+Local variable. For example, input parameters or locally created objects of methods that are still in the stack of a thread.
+Native Stack
+In or out parameters in native code, such as user defined JNI code or JVM internal code. This is often the case as many methods have native parts and the objects handled as method parameters become GC roots. For example, parameters used for file/network I/O methods or reflection.
+Finalizable
+An object which is in a queue awaiting its finalizer to be run.
+Unfinalized
+An object which has a finalize method, but has not been finalized and is not yet on the finalizer queue.
+Unreachable
+An object which is unreachable from any other root, but has been marked as a root by MAT to retain objects which otherwise would not be included in the analysis.
+Java Stack Frame
+A Java stack frame, holding local variables. Only generated when the dump is parsed with the preference set to treat Java stack frames as objects.
+Unknown
+An object of unknown root type. Some dumps, such as IBM Portable Heap Dump files, do not have root information. For these dumps the MAT parser marks objects which are have no inbound references or are unreachable from any other root as roots of this type. This ensures that MAT retains all the objects in the dump.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content:encoded></item><item><title><![CDATA[从一线到二线，从互联网到传统制造]]></title><description><![CDATA[2020 年从一线城市 北京 到了 二线城市 Q 市，体验数月，有些区别。以下从客户端开发角度来描述。 工作环境  北京/互联网 Q 市/传统制造 工作时间 - S 厂  10:00 - 7:00，双休。发版日会根据情况加班，经常凌晨，偶尔通宵。一般一到两个月一个版本。- A…]]></description><link>https://gatsby-starter-blog-demo.netlify.app/beijing-internet-enterprise-vs-second-tier-city-traditional-manufacturing/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.app/beijing-internet-enterprise-vs-second-tier-city-traditional-manufacturing/</guid><pubDate>Wed, 15 Jul 2020 23:13:00 GMT</pubDate><content:encoded>&lt;p&gt;2020 年从一线城市 北京 到了 二线城市 Q 市，体验数月，有些区别。以下从客户端开发角度来描述。&lt;/p&gt;
 &lt;h2&gt;工作环境&lt;/h2&gt;
 &lt;table&gt;
 &lt;thead&gt;
