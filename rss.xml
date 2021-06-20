@@ -1,21 +1,328 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[GuGiu Blog]]></title><description><![CDATA[A starter blog demonstrating what Gatsby can do.]]></description><link>https://gatsby-starter-blog-demo.netlify.app</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 16 Jul 2020 13:13:34 GMT</lastBuildDate><item><title><![CDATA[一线城市互联网公司与二线城市传统制造业对比]]></title><description><![CDATA[2020 年从一线城市 北京 到了 二线城市 Q市，体验数月，有些区别。如下 上班时间 在 北京 经历三家公司上班时间如下 第一家 - 上市互联网公司 10点 - 7点，双休。发版日会根据情况加班，经常凌晨，偶尔通宵。一般一到两个月一个版本。 第二家 - 创业互联网公司 1…]]></description><link>https://gatsby-starter-blog-demo.netlify.app/beijing-internet-enterprise-vs-second-tier-city-traditional-manufacturing/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.app/beijing-internet-enterprise-vs-second-tier-city-traditional-manufacturing/</guid><pubDate>Wed, 15 Jul 2020 23:13:00 GMT</pubDate><content:encoded>&lt;p&gt;2020 年从一线城市 北京 到了 二线城市 Q市，体验数月，有些区别。如下&lt;/p&gt;
-&lt;h2&gt;上班时间&lt;/h2&gt;
-&lt;p&gt;在 北京 经历三家公司上班时间如下&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[GuGiu Blog]]></title><description><![CDATA[A starter blog demonstrating what Gatsby can do.]]></description><link>https://blog.gugiu.com</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 20 Jun 2021 10:31:58 GMT</lastBuildDate><item><title><![CDATA[JVM 垃圾收集器与内存分配策略]]></title><description><![CDATA[Java 虚拟机中的内存分区 区域 介绍 方法区 Method Area…]]></description><link>https://blog.gugiu.com/jvm-garbage-collect/</link><guid isPermaLink="false">https://blog.gugiu.com/jvm-garbage-collect/</guid><pubDate>Thu, 16 Jul 2020 23:13:00 GMT</pubDate><content:encoded>&lt;h3&gt;Java 虚拟机中的内存分区&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;区域&lt;/th&gt;
+&lt;th&gt;介绍&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;方法区 Method Area&lt;/td&gt;
+&lt;td&gt;-存储被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。 &lt;br/&gt; - 线程共享 - 也被很多人认为是 “永久代”，但是后来没有方法区了，变成了 ”元空间“ &lt;br/&gt;- 加载器被卸载后，方法区中的 类信息才会被回收&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Java 堆&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;- 存储大多数对象&lt;br/&gt;- 线程共享&lt;br/&gt;- 分为新生代老年代，新生代又分为 Eden 区和 Survivor 区&lt;br/&gt;垃圾回收主要是回收这个区&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;虚拟机栈&lt;/td&gt;
+&lt;td&gt;创建栈帧 存储局部变量、操作数栈、动态链接、方法出口等&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;本地方法栈&lt;/td&gt;
+&lt;td&gt;与虚拟机栈作用类似&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;程序计数器 Program Counter Register&lt;/td&gt;
+&lt;td&gt;当前线程执行的字节码的行号指示器&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3&gt;判断对象是否需要回收的算法&lt;/h3&gt;
+&lt;h4&gt;引用计数算法&lt;/h4&gt;
+&lt;p&gt;Java 没有选用，其他语言有选用的，比如Python。Java 没有选用的主要原因是很难解决循环引用。&lt;/p&gt;
+&lt;h4&gt;可达性分析算法&lt;/h4&gt;
+&lt;p&gt;当一个对象到 GC Roots 没有任何引用链相联，则认为该对象不可用。&lt;/p&gt;
+&lt;h4&gt;关于引用&lt;/h4&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;强引用&lt;/td&gt;
+&lt;td&gt;宁愿OOM也不回收&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;软引用&lt;/td&gt;
+&lt;td&gt;GC时会把有用非必需的对象回收&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;弱引用&lt;/td&gt;
+&lt;td&gt;无论是否有用，内存是否紧张都会被回收&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;虚引用&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3&gt;垃圾收集算法&lt;/h3&gt;
 &lt;ul&gt;
+&lt;li&gt;标记清除算法&lt;/li&gt;
+&lt;li&gt;复制算法&lt;/li&gt;
+&lt;li&gt;标记整理算法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;安全点&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;安全区域&lt;/code&gt;&lt;/p&gt;
+&lt;h4&gt;垃圾收集器&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Serial 收集器&lt;/li&gt;
+&lt;li&gt;ParNew 收集器&lt;/li&gt;
+&lt;li&gt;Parallel Scavenhge&lt;/li&gt;
+&lt;li&gt;Serial Old 收集器&lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;第一家 - 上市互联网公司&lt;/p&gt;
-&lt;p&gt;10点 - 7点，双休。发版日会根据情况加班，经常凌晨，偶尔通宵。一般一到两个月一个版本。&lt;/p&gt;
-&lt;/li&gt;
+&lt;p&gt;CMS 收集器&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;服务器常用&lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;第二家 - 创业互联网公司&lt;/p&gt;
-&lt;p&gt;10点 - 7点，大小周。偶尔加班到八点。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;第三家 - 上市互联网公司&lt;/p&gt;
-&lt;p&gt;10:30 - 10:30，偶尔早走或晚走，未通宵过。&lt;/p&gt;
+&lt;p&gt;缺点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CPU 资源敏感&lt;/li&gt;
+&lt;li&gt;无法处理浮动垃圾 &lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;G1 收集器&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;分相同大小的区域&lt;/li&gt;
+&lt;li&gt;优点
+- 内存分配与回收策略
+- 对象优先在 新生代的 Eden 分配&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;FAQ&lt;/h2&gt;
+&lt;h4&gt;1. G1 相比 CMS 优势 ?&lt;/h4&gt;
+&lt;p&gt;空间整合，不会产生内存空间碎片
+可预测停顿&lt;/p&gt;
+&lt;h4&gt;2. 什么是 GC Root ？&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;https://help.eclipse.org/2020-06/index.jsp?topic=%2Forg.eclipse.mat.ui.help%2Fconcepts%2Fgcroots.html&amp;#x26;cp=37_2_3&quot;&gt;https://help.eclipse.org/2020-06/index.jsp?topic=%2Forg.eclipse.mat.ui.help%2Fconcepts%2Fgcroots.html&amp;#x26;cp=37_2_3&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;Garbage Collection Roots
+A garbage collection root is an object that is accessible from outside the heap. The following reasons make an object a GC root:
+
+System Class
+Class loaded by bootstrap/system class loader. For example, everything from the rt.jar like java.util.* .
+JNI Local
+Local variable in native code, such as user defined JNI code or JVM internal code.
+JNI Global
+Global variable in native code, such as user defined JNI code or JVM internal code.
+Thread Block
+Object referred to from a currently active thread block.
+Thread
+A started, but not stopped, thread.
+Busy Monitor
+Everything that has called wait() or notify() or that is synchronized. For example, by calling synchronized(Object) or by entering a synchronized method. Static method means class, non-static method means object.
+Java Local
+Local variable. For example, input parameters or locally created objects of methods that are still in the stack of a thread.
+Native Stack
+In or out parameters in native code, such as user defined JNI code or JVM internal code. This is often the case as many methods have native parts and the objects handled as method parameters become GC roots. For example, parameters used for file/network I/O methods or reflection.
+Finalizable
+An object which is in a queue awaiting its finalizer to be run.
+Unfinalized
+An object which has a finalize method, but has not been finalized and is not yet on the finalizer queue.
+Unreachable
+An object which is unreachable from any other root, but has been marked as a root by MAT to retain objects which otherwise would not be included in the analysis.
+Java Stack Frame
+A Java stack frame, holding local variables. Only generated when the dump is parsed with the preference set to treat Java stack frames as objects.
+Unknown
+An object of unknown root type. Some dumps, such as IBM Portable Heap Dump files, do not have root information. For these dumps the MAT parser marks objects which are have no inbound references or are unreachable from any other root as roots of this type. This ensures that MAT retains all the objects in the dump.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;3. finalize&lt;/h4&gt;
+&lt;p&gt;finalize()只会被系统自动调用一次。下次回收时不会再调用 finalize 方法，则对象会被回收，&lt;/p&gt;</content:encoded></item><item><title><![CDATA[从一线到二线，从互联网到传统制造]]></title><description><![CDATA[2020 年从一线城市 北京 到了 二线城市 Q 市，体验数月，有些区别。以下从客户端开发角度来描述。 工作环境  北京/互联网 Q 市/传统制造 工作时间 - S 厂  10:00 - 7:00，双休。发版日会根据情况加班，经常凌晨，偶尔通宵。一般一到两个月一个版本。- A…]]></description><link>https://blog.gugiu.com/beijing-internet-enterprise-vs-second-tier-city-traditional-manufacturing/</link><guid isPermaLink="false">https://blog.gugiu.com/beijing-internet-enterprise-vs-second-tier-city-traditional-manufacturing/</guid><pubDate>Wed, 15 Jul 2020 23:13:00 GMT</pubDate><content:encoded>&lt;p&gt;2020 年从一线城市 北京 到了 二线城市 Q 市，体验数月，有些区别。以下从客户端开发角度来描述。&lt;/p&gt;
 &lt;h2&gt;工作环境&lt;/h2&gt;
-&lt;h2&gt;职业发展&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&quot;left&quot;&gt;&lt;/th&gt;
+&lt;th align=&quot;left&quot;&gt;北京/互联网&lt;/th&gt;
+&lt;th&gt;Q 市/传统制造&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;工作时间&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;- S 厂  10:00 - 7:00，双休。发版日会根据情况加班，经常凌晨，偶尔通宵。一般一到两个月一个版本。&lt;br/&gt;- A 厂  10:00 - 7:00，弹性制，大小周。偶尔加班到八点。&lt;br /&gt;- C 厂  10:30 - 10:30，弹性制，行政要求月工作时长总额达到就不扣工资，平时加班与否取决于部门老大。&lt;/td&gt;
+&lt;td&gt;H 厂 9:00 - 7:00，中午饭休半小时，周六加班半天&lt;br /&gt;且大部分公司都是9点上班&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;公司环境&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;S 厂普通写字楼园区 &lt;br /&gt;A 厂中关村写字楼 &lt;br /&gt;C 厂由废旧工厂改造创意园区，重新设计。稀树草坪，环境优雅，风景秀丽。&lt;br /&gt;常有员工和外来人员拍照。朋友圈也常见同事分享园区美景&lt;br /&gt;公司楼内设计现代，色彩亮丽，曲水流淌。&lt;br /&gt;短视频流行起来后常有网红过来取景，也有拍婚纱照的。&lt;/td&gt;
+&lt;td&gt;H 公司内部禁止拍照，公司外部无人拍照&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;规模&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;- 上市互联网公司 S ，市值最高时 80 亿美元，万余人&lt;br/&gt;- 创业公司 A 百余人&lt;br/&gt;- 上市公司 C，市值最高时 40 亿美元，两三千人&lt;/td&gt;
+&lt;td&gt;H 厂 近十万人&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;卫生&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;物业负责&lt;/td&gt;
+&lt;td&gt;轮流值日，自己打扫&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;安全检查&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;无&lt;/td&gt;
+&lt;td&gt;不定期每周都会有 6S 检查，工位需整洁，违者通报批评&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;打卡&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;打卡/指纹/人脸&lt;/td&gt;
+&lt;td&gt;APP 定位&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;饮水&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;物业负责&lt;br /&gt;基本正常&lt;br /&gt;&lt;/td&gt;
+&lt;td&gt;轮流值日去水房搬水，有的部门是从一楼搬四楼&lt;br /&gt;大桶水有异味，部分同事无感&lt;br /&gt;饮水机脏发黑&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;食物&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;公司楼下美食城，或可点外卖&lt;/td&gt;
+&lt;td&gt;禁止点外卖，发现通报批评&lt;br /&gt;公司有食堂，较难吃&lt;br /&gt;办公室因安全原因无微波炉，所以自带饭没有加热设备，自带电热饭盒属于违规&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;空调&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;中央空调&lt;/td&gt;
+&lt;td&gt;立式空调&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;用电&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;人感自动关闭&lt;/td&gt;
+&lt;td&gt;下班需断电，电脑不得放桌面&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;门窗&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;行政和保安负责&lt;/td&gt;
+&lt;td&gt;各部门负责&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;午休&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;一般两小时&lt;/td&gt;
+&lt;td&gt;半小时吃饭时间，不许趴着睡觉&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;座椅&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;一千左右的可调节、可躺椅子 ，品牌金卓&lt;/td&gt;
+&lt;td&gt;普通固定椅子&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;小件办公设备&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;公司提供，扫码限量领取，或统一采购报销&lt;/td&gt;
+&lt;td&gt;员工自费&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;打车&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;10 点后报销&lt;/td&gt;
+&lt;td&gt;员工自费&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;团建&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;看情况，有时每个月都有 有时按年计&lt;/td&gt;
+&lt;td&gt;有&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;h2&gt;团队成员&lt;/h2&gt;
-&lt;h2&gt;个人生活&lt;/h2&gt;</content:encoded></item></channel></rss>
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&quot;left&quot;&gt;&lt;/th&gt;
+&lt;th&gt;北京/互联网&lt;/th&gt;
+&lt;th&gt;Q 市/传统制造&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;工作经验（年龄）&lt;/td&gt;
+&lt;td&gt;基本都较年轻，三到八年的居多&lt;/td&gt;
+&lt;td&gt;大多五年以上，二十年的也有&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;家庭&lt;/td&gt;
+&lt;td&gt;单身较多&lt;/td&gt;
+&lt;td&gt;婚育较多&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;学历学校&lt;/td&gt;
+&lt;td&gt;清华北大少量、哈工大北邮大量、一二本大量&lt;br /&gt;硕士较多，留学生较多&lt;/td&gt;
+&lt;td&gt;未见名校，未见留学生，有少量211，少量硕士&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;交通方式&lt;/td&gt;
+&lt;td&gt;地铁居多，少数开车&lt;/td&gt;
+&lt;td&gt;开车和公共交通占比 五五开&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2&gt;开发相关&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&quot;left&quot;&gt;&lt;/th&gt;
+&lt;th&gt;北京/互联网&lt;/th&gt;
+&lt;th&gt;Q 市/传统制造&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;驱动方式&lt;/td&gt;
+&lt;td&gt;产品驱动或研发驱动&lt;/td&gt;
+&lt;td&gt;项目驱动&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;驱动方&lt;/td&gt;
+&lt;td&gt;产品经理&lt;/td&gt;
+&lt;td&gt;项目经理&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;发版周期&lt;/td&gt;
+&lt;td&gt;周期较短，一版一周至两周，冲刺阶段周期更短 接近天天发版&lt;/td&gt;
+&lt;td&gt;周期较长，大产品按年度划分，分到软件开发上按月度或季度划分，&lt;br /&gt;所以如果领导没有突发奇想一般不会很忙&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;对接人员&lt;/td&gt;
+&lt;td&gt;开发者对接产品经理、服务器、UI 设计师、交互设计师&lt;/td&gt;
+&lt;td&gt;开发者对接项目经理、产品经理、服务器、UI 设计师、硬件项目经理、&lt;br /&gt;各环节保安（有时需运输设备需保安放行）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;可持续集成&lt;/td&gt;
+&lt;td&gt;自动化 Jenkins&lt;/td&gt;
+&lt;td&gt;手动打包，也有 自动化&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;工作流程&lt;/td&gt;
+&lt;td&gt;清晰简明&lt;/td&gt;
+&lt;td&gt;看部门吧&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;对技术态度&lt;/td&gt;
+&lt;td&gt;普遍热爱进步，努力很容易从收入上看到成效&lt;/td&gt;
+&lt;td&gt;对技术要求不是很高，推测是技术上的进步难见成效，&lt;br /&gt;|人际关系和知识面广度作用更大&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;安全建设&lt;/td&gt;
+&lt;td&gt;正常&lt;/td&gt;
+&lt;td&gt;开发人员也薄弱，比如代码库ip公开外网访问，|&lt;br /&gt;内网服务外网不用vpn都可访问&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;网络安全意识&lt;/td&gt;
+&lt;td&gt;正常&lt;/td&gt;
+&lt;td&gt;有行政进行抽查电脑是否安装监控软件&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;电脑软件&lt;/td&gt;
+&lt;td&gt;正常&lt;/td&gt;
+&lt;td&gt;需装监控软件，文件加密软件，系统软件打开的文件会自动加密，&lt;br /&gt;解密需找部门解密负责人解密&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;left&quot;&gt;待补充&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;</content:encoded></item></channel></rss>
